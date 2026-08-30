@@ -1,0 +1,16 @@
+import mongoose from 'mongoose';
+import { config } from './env.js';
+
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(config.mongoUri, {
+      serverSelectionTimeoutMS: 5000,
+    });
+    console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.error(`❌ MongoDB Connection Error: ${error.message}`);
+    console.error(`💡 Tip: Make sure MongoDB is running at ${config.mongoUri} or update MONGO_URI in .env with your MongoDB Atlas URI.`);
+  }
+};
+
+export default connectDB;
